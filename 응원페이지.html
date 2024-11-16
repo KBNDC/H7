@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>최강 7반 승리하리라!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: blue;
+            color: white;
+            font-size: 24px;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #button:hover {
+            background-color: darkblue;
+        }
+
+        #stats {
+            position: absolute;
+            bottom: 10%;
+            width: 100%;
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+        }
+
+        #back-button {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            background-color: red;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: yellow;
+            position: absolute;
+            animation: fall 3s ease-out forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(calc(100vh - 50px)); /* 공이 바닥에 떨어짐 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>최강 7반 승리하리라!</h1>
+<button id="button"><span>최강 7반 승리하리라!</span></button>
+<div id="stats">현재 참여자 수: <span id="participantCount">0</span></div>
+<button id="back-button" onclick="goBack()">뒤로 가기</button>
+
+<audio id="popSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+
+<script>
+    const button = document.getElementById('button');
+    const stats = document.getElementById('stats');
+    const participantCount = document.getElementById('participantCount');
+    const popSound = document.getElementById('popSound');
+    let ballCount = 0;
+
+    // 페이지가 로드될 때 참여자 수를 localStorage에서 불러옵니다.
+    if (localStorage.getItem('participantCount')) {
+        participantCount.textContent = localStorage.getItem('participantCount');
+    }
+
+    button.addEventListener('click', () => {
+        // 버튼 클릭 시 공을 랜덤한 위치에서 떨어뜨리고 소리도 납니다.
+        createBall();
+
+        // 공이 떨어지는 소리
+        popSound.play();
+
+        // 참여자 수 증가
+        if (!localStorage.getItem('hasParticipated')) {
+            ballCount++;
+            participantCount.textContent = ballCount;
+            localStorage.setItem('participantCount', ballCount);
+            localStorage.setItem('hasParticipated', 'true');
+        }
+    });
+
+    function createBall() {
+        const ball = document.createElement('div');
+        ball.classList.add('ball');
+
+        // 공이 랜덤한 위치에서 떨어지게 하기
+        const randomX = Math.random() * (window.innerWidth - 50); // 화면 너비에 맞게 공을 배치
+        ball.style.left = `${randomX}px`;
+
+        // 공을 화면에 추가
+        document.body.appendChild(ball);
+    }
+
+    function goBack() {
+        // 뒤로 가기 버튼을 누르면 참여자 수를 로컬에 저장된 값으로 불러와서 보여줌
+        alert(`현재 참여자 수는 ${participantCount.textContent}명입니다.`);
+        window.location.href = 'index.html'; // 메인 페이지로 이동
+    }
+</script>
+
+</body>
+</html>
