@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>최강 7반 응원하기</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #main-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: blue;
+            color: white;
+            font-size: 24px;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #main-button:hover {
+            background-color: darkblue;
+        }
+
+        #main-button span {
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main-page">
+    <button id="main-button">최강 7반 응원하러 가기</button>
+</div>
+
+<script>
+    // 메인 페이지 버튼 클릭 시 응원 페이지로 이동
+    const mainButton = document.getElementById('main-button');
+    mainButton.addEventListener('click', () => {
+        window.location.href = '응원페이지.html'; // 응원 페이지로 이동
+    });
+</script>
+
+</body>
+</html>
